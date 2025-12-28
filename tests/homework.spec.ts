@@ -19,14 +19,11 @@ test.describe('SE302 Homework 02 - Web Automation', () => {
     await shop.emailInput.fill('test@example.com');
     await shop.passwordInput.fill('wrongpassword');
     await shop.loginButton.click();
-    
-    // The site redirects to a Netlify error page on failure.
-    // We check that the URL is NOT the home page/dashboard to confirm rejection.
     await expect(shop.page).not.toHaveURL('https://sweetshop.netlify.app/'); 
   });
 
   test('TC 02: Add product to cart', async () => {
-    await shop.navigateToSweets(); // Go to the sweets page first
+    await shop.navigateToSweets(); 
     await shop.firstSweetAddBtn.click();
     await expect(shop.basketBadge).toHaveText('1', { timeout: 10000 }); 
   });
@@ -44,8 +41,6 @@ test.describe('SE302 Homework 02 - Web Automation', () => {
     await shop.navigateToSweets();
     await shop.firstSweetAddBtn.click();
     await expect(shop.basketBadge).toHaveText('1');
-    
-    // Navigate away and check if it stays
     await page.goto('https://sweetshop.netlify.app/about');
     await expect(shop.basketBadge).toHaveText('1'); 
   });
